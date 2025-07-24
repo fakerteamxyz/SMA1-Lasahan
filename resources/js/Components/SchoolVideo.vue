@@ -1,163 +1,145 @@
 <template>
-  <section class="py-16 bg-gradient-to-br from-[#0487E2]/5 to-[#65C2F5]/10">
-    <div class="container mx-auto px-4">
+  <section class="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 25% 25%, #ffffff 2px, transparent 2px), radial-gradient(circle at 75% 75%, #ffffff 2px, transparent 2px); background-size: 50px 50px;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
       <!-- Section Header -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0 }
+          initial: { opacity: 0, y: 80, scale: 0.7 },
+          visibleOnce: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            transition: { 
+              type: 'spring',
+              stiffness: 100,
+              damping: 15,
+              delay: 200
+            }
+          }
         }"
-        class="text-center mb-12"
+        class="text-center mb-16"
       >
-        <h2 class="text-sm text-[#0487E2] font-semibold uppercase tracking-wider mb-2">Video Profil</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Mengenal SMA 1 Lareh Sago Halaban</h3>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Saksikan profil lengkap sekolah kami melalui video yang menampilkan fasilitas, kegiatan, dan prestasi yang telah diraih
+        <div class="inline-block px-6 py-2 mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 text-white rounded-full text-sm font-bold uppercase tracking-wider shadow-lg">
+          Video Profil
+        </div>
+        <h3 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+          <span class="bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+            Mengenal SMA 1 Lareh Sago Halaban
+          </span>
+        </h3>
+        <p class="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
+          Saksikan profil lengkap sekolah kami melalui video yang menampilkan fasilitas modern, kegiatan pembelajaran inovatif, dan prestasi membanggakan yang telah diraih
         </p>
       </div>
 
       <!-- Main Video Section -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 50 },
-          enter: { opacity: 1, y: 0, transition: { delay: 200 } }
+          initial: { opacity: 0, y: 120, rotateX: 20, scale: 0.9 },
+          visibleOnce: { 
+            opacity: 1, 
+            y: 0, 
+            rotateX: 0,
+            scale: 1,
+            transition: { 
+              type: 'spring',
+              stiffness: 80,
+              damping: 20,
+              delay: 600
+            }
+          }
         }"
-        class="mb-16"
+              damping: 15,
+              delay: 400,
+              duration: 1000
+            }
+          }
+        }"
+        class="mb-20"
       >
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div class="relative">
-            <!-- Video Player -->
-            <div class="relative aspect-video bg-gray-900">
-              <video
-                v-if="isPlaying && currentVideo"
-                :src="currentVideo.url"
-                controls
-                autoplay
-                class="w-full h-full object-cover"
-                @ended="isPlaying = false"
-              ></video>
-              
-              <!-- Video Thumbnail -->
-              <div 
-                v-else
-                class="relative w-full h-full cursor-pointer group"
-                @click="playVideo(featuredVideo)"
-              >
-                <img 
-                  :src="featuredVideo.thumbnail" 
-                  :alt="featuredVideo.title"
-                  class="w-full h-full object-cover"
-                >
+        <div class="relative">
+          <!-- Glow Effect -->
+          <div class="absolute -inset-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-lg opacity-75 animate-pulse"></div>
+          
+          <div class="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
+            <div class="relative">
+              <!-- Video Player -->
+              <div class="relative aspect-video bg-black">
+                <!-- YouTube Embed Player -->
+                <iframe
+                  v-if="isPlaying && currentVideo"
+                  :src="getYouTubeEmbedUrl(currentVideo.url)"
+                  class="w-full h-full rounded-t-3xl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
                 
-                <!-- Overlay -->
-                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-                  <!-- Play Button -->
-                  <div class="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:bg-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#0487E2] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
+                <!-- Video Thumbnail -->
+                <div 
+                  v-else
+                  class="relative w-full h-full cursor-pointer group"
+                  @click="playVideo(featuredVideo)"
+                >
+                  <img 
+                    :src="featuredVideo.thumbnail" 
+                    :alt="featuredVideo.title"
+                    class="w-full h-full object-cover rounded-t-3xl"
+                  >
+                  
+                  <!-- Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-blue-900/60 group-hover:from-black/40 group-hover:via-purple-800/60 group-hover:to-blue-800/40 transition-all duration-500 flex items-center justify-center rounded-t-3xl">
+                    <!-- Play Button -->
+                    <div 
+                      v-motion="{
+                        initial: { scale: 0, rotate: -180 },
+                        enter: { 
+                          scale: 1, 
+                          rotate: 0,
+                          transition: { 
+                            type: 'spring',
+                            stiffness: 200,
+                            damping: 10,
+                            delay: 800
+                          }
+                        }
+                      }"
+                      class="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center group-hover:from-cyan-300 group-hover:to-blue-400 transition-all duration-300 shadow-2xl border-4 border-white/20 group-hover:scale-110 group-hover:shadow-cyan-400/50"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Video Info Overlay -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-gray-900/80 to-transparent p-8 rounded-b-3xl">
+                    <h4 class="text-white text-2xl font-bold mb-3 leading-tight">{{ featuredVideo.title }}</h4>
+                    <p class="text-gray-200 text-base mb-4 leading-relaxed">{{ featuredVideo.description }}</p>
+                    <div class="flex items-center text-cyan-300 text-sm font-medium">
+                      <div class="flex items-center mr-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {{ featuredVideo.duration }}
+                      </div>
+                      <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        {{ featuredVideo.views }} ditonton
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <!-- Video Info Overlay -->
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                  <h4 class="text-white text-xl font-bold mb-2">{{ featuredVideo.title }}</h4>
-                  <p class="text-white/90 text-sm mb-3">{{ featuredVideo.description }}</p>
-                  <div class="flex items-center text-white/80 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {{ featuredVideo.duration }}
-                    <span class="mx-2">•</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    {{ featuredVideo.views }} ditonton
-                  </div>
-                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Playlist -->
-      <div 
-        v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0, transition: { delay: 400 } }
-        }"
-        class="mb-12"
-      >
-        <h4 class="text-2xl font-bold text-gray-800 mb-8 text-center">Video Lainnya</h4>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div 
-            v-for="(video, index) in videoPlaylist" 
-            :key="video.id"
-            v-motion="{
-              initial: { opacity: 0, y: 30 },
-              enter: { opacity: 1, y: 0, transition: { delay: (index * 100) + 600 } }
-            }"
-            class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-            @click="playVideo(video)"
-          >
-            <div class="relative aspect-video">
-              <img 
-                :src="video.thumbnail" 
-                :alt="video.title"
-                class="w-full h-full object-cover"
-              >
-              
-              <!-- Play Overlay -->
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#0487E2] ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Duration Badge -->
-              <div class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
-                {{ video.duration }}
-              </div>
-            </div>
-
-            <div class="p-4">
-              <h5 class="font-semibold text-gray-800 mb-2 line-clamp-2">{{ video.title }}</h5>
-              <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ video.description }}</p>
-              
-              <div class="flex items-center justify-between text-xs text-gray-500">
-                <span>{{ video.views }} ditonton</span>
-                <span>{{ video.uploadDate }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Statistics -->
-      <div 
-        v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0, transition: { delay: 800 } }
-        }"
-        class="bg-white rounded-xl shadow-lg p-8"
-      >
-        <h4 class="text-2xl font-bold text-center text-gray-800 mb-8">Statistik Video</h4>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div 
-            v-for="(stat, index) in videoStats" 
-            :key="index"
-            class="text-center"
-          >
-            <div class="w-16 h-16 bg-gradient-to-br from-[#0487E2] to-[#65C2F5] rounded-full mx-auto mb-3 flex items-center justify-center">
-              <component :is="stat.icon" class="h-8 w-8 text-white" />
-            </div>
-            <div class="text-2xl font-bold text-gray-800 mb-1">{{ stat.value }}</div>
-            <p class="text-sm text-gray-600">{{ stat.label }}</p>
           </div>
         </div>
       </div>
@@ -165,19 +147,60 @@
       <!-- Call to Action -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0, transition: { delay: 1000 } }
+          initial: { opacity: 0, y: 80, scale: 0.9 },
+          enter: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            transition: { 
+              type: 'spring',
+              stiffness: 100,
+              damping: 12,
+              delay: 1200,
+              duration: 800
+            }
+          }
         }"
-        class="text-center mt-12"
+        class="text-center"
       >
-        <p class="text-gray-600 mb-6">Tertarik untuk bergabung dengan SMA 1 Lareh Sago Halaban?</p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="/ppdb" class="bg-[#0487E2] hover:bg-[#0463CA] text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-            <span class="text-white">Daftar Sekarang</span>
-          </a>
-          <a href="/kontak" class="border-2 border-[#0487E2] text-[#0487E2] hover:bg-[#0487E2] hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-            Hubungi Kami
-          </a>
+        <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-lg rounded-3xl p-12 border border-gray-600/30">
+          <h4 class="text-3xl font-bold text-white mb-4">Tertarik Bergabung?</h4>
+          <p class="text-gray-200 text-lg mb-8 max-w-2xl mx-auto">
+            Bergabunglah dengan SMA 1 Lareh Sago Halaban dan wujudkan masa depan cemerlang bersama pendidikan berkualitas tinggi
+          </p>
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="/ppdb" 
+               v-motion="{
+                 initial: { opacity: 0, x: -50 },
+                 enter: { 
+                   opacity: 1, 
+                   x: 0,
+                   transition: { 
+                     delay: 1400,
+                     duration: 600
+                   }
+                 }
+               }"
+               class="group relative px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25">
+              <span class="relative z-10">🎓 Daftar Sekarang</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-cyan-300 to-blue-400 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            </a>
+            <a href="/kontak" 
+               v-motion="{
+                 initial: { opacity: 0, x: 50 },
+                 enter: { 
+                   opacity: 1, 
+                   x: 0,
+                   transition: { 
+                     delay: 1600,
+                     duration: 600
+                   }
+                 }
+               }"
+               class="group relative px-10 py-4 border-2 border-cyan-400 text-cyan-300 hover:text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 hover:border-transparent hover:shadow-2xl hover:shadow-cyan-500/25">
+              📞 Hubungi Kami
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -195,136 +218,37 @@ const featuredVideo = ref({
   title: 'Profil Lengkap SMA Negeri 1 Lareh Sago Halaban',
   description: 'Video profil resmi yang menampilkan fasilitas, kegiatan pembelajaran, prestasi, dan kehidupan siswa di SMA 1 Lareh Sago Halaban.',
   thumbnail: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-  url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4', // Sample video URL
+  url: 'https://www.youtube.com/watch?v=WidO2o3fGd8', // Sample video URL
   duration: '15:30',
   views: '12,450',
   uploadDate: '1 Juli 2025'
 });
 
-const videoPlaylist = ref([
-  {
-    id: 2,
-    title: 'Fasilitas Laboratorium dan Perpustakaan',
-    description: 'Mengenal lebih dekat fasilitas laboratorium IPA, komputer, dan perpustakaan modern di sekolah kami.',
-    thumbnail: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '8:45',
-    views: '8,234',
-    uploadDate: '25 Juni 2025'
-  },
-  {
-    id: 3,
-    title: 'Kegiatan Ekstrakurikuler dan Prestasi Siswa',
-    description: 'Dokumentasi berbagai kegiatan ekstrakurikuler dan prestasi membanggakan yang diraih siswa-siswi kami.',
-    thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '12:20',
-    views: '15,678',
-    uploadDate: '20 Juni 2025'
-  },
-  {
-    id: 4,
-    title: 'Sehari Bersama Siswa SMA 1 LSH',
-    description: 'Mengikuti aktivitas sehari-hari siswa dari pagi hingga sore, mulai dari pembelajaran hingga kegiatan ekstrakurikuler.',
-    thumbnail: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '10:15',
-    views: '9,432',
-    uploadDate: '15 Juni 2025'
-  },
-  {
-    id: 5,
-    title: 'Testimoni Guru dan Alumni',
-    description: 'Mendengar langsung pengalaman dan testimoni dari guru-guru berpengalaman dan alumni berprestasi.',
-    thumbnail: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '14:30',
-    views: '11,789',
-    uploadDate: '10 Juni 2025'
-  },
-  {
-    id: 6,
-    title: 'Virtual Tour Kampus Sekolah',
-    description: 'Tour virtual mengelilingi seluruh area sekolah dengan panduan lengkap setiap fasilitas yang tersedia.',
-    thumbnail: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '18:45',
-    views: '20,156',
-    uploadDate: '5 Juni 2025'
-  },
-  {
-    id: 7,
-    title: 'Proses Pembelajaran Kurikulum Merdeka',
-    description: 'Melihat langsung penerapan Kurikulum Merdeka dalam proses pembelajaran sehari-hari di kelas.',
-    thumbnail: 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    duration: '16:00',
-    views: '7,865',
-    uploadDate: '1 Juni 2025'
-  }
-]);
-
-const videoStats = ref([
-  {
-    icon: 'PlayIcon',
-    value: '85K+',
-    label: 'Total Views'
-  },
-  {
-    icon: 'VideoIcon',
-    value: '25+',
-    label: 'Video Tersedia'
-  },
-  {
-    icon: 'UserGroupIcon',
-    value: '3.2K',
-    label: 'Subscriber'
-  },
-  {
-    icon: 'ThumbUpIcon',
-    value: '98%',
-    label: 'Like Rate'
-  }
-]);
-
 const playVideo = (video) => {
   currentVideo.value = video;
   isPlaying.value = true;
   // Scroll to video player
-  document.querySelector('video')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => {
+    const videoElement = document.querySelector('iframe');
+    if (videoElement) {
+      videoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
 };
 
-// Icon components (you might want to use Heroicons or similar)
-const PlayIcon = {
-  template: `
-    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-  `
-};
-
-const VideoIcon = {
-  template: `
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-    </svg>
-  `
-};
-
-const UserGroupIcon = {
-  template: `
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-    </svg>
-  `
-};
-
-const ThumbUpIcon = {
-  template: `
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-    </svg>
-  `
+// Function to convert YouTube URL to embed format
+const getYouTubeEmbedUrl = (url) => {
+  if (!url) return '';
+  
+  // Extract video ID from various YouTube URL formats
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  
+  if (match && match[2].length === 11) {
+    return `https://www.youtube.com/embed/${match[2]}?autoplay=1&rel=0`;
+  }
+  
+  return url;
 };
 </script>
 

@@ -1,7 +1,12 @@
 <template>
-  <footer class="bg-gray-900 text-white">
+  <footer class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 25% 25%, #00ffff 1px, transparent 1px), radial-gradient(circle at 75% 75%, #8b5cf6 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+    
     <!-- Main Footer Content -->
-    <div class="container mx-auto px-4 py-12">
+    <div class="container mx-auto px-4 py-16 relative z-10">
       <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
         
         <!-- School Info -->
@@ -12,11 +17,14 @@
           }"
           class="lg:col-span-1"
         >
-          <div class="flex items-center space-x-3 mb-6">
-            <img src="https://via.placeholder.com/60" alt="Logo SMA LSH" class="h-12 w-12 object-contain" />
+          <div class="flex items-center space-x-4 mb-8">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full blur-sm opacity-75"></div>
+              <img src="/logo/logo_souca.png" alt="Logo SMA LSH" class="relative h-14 w-14 object-contain rounded-full border-2 border-cyan-300/50" />
+            </div>
             <div>
-              <h3 class="font-bold text-lg text-white">SMA LSH</h3>
-              <p class="text-gray-400 text-sm">Unggul dalam Prestasi</p>
+              <h3 class="font-black text-xl bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">SMA LSH</h3>
+              <p class="text-cyan-200 text-sm font-medium">Unggul dalam Prestasi</p>
             </div>
           </div>
           

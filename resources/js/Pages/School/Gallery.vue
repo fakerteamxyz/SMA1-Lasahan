@@ -575,8 +575,8 @@ const videos = ref([
     title: 'Profil SMA Negeri 1 Lareh Sago Halaban',
     description: 'Video profil lengkap tentang sejarah, fasilitas, dan prestasi SMA Negeri 1 Lareh Sago Halaban',
     category: 'event',
-    thumbnail: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://www.youtube.com/watch?v=WidO2o3fGd8',
+    embedUrl: 'https://www.youtube.com/watch?v=WidO2o3fGd8',
     duration: '8:45',
     date: '1 Januari 2025',
     views: 1250

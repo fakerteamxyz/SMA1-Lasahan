@@ -1,16 +1,26 @@
 <template>
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-gradient-to-br from-gray-100 to-purple-50">
     <div class="container mx-auto px-4">
       <!-- Section Header -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0 }
+          initial: { opacity: 0, y: 50, scale: 0.9 },
+          visibleOnce: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            transition: { 
+              type: 'spring',
+              stiffness: 100,
+              damping: 15,
+              delay: 100
+            }
+          }
         }"
         class="text-center mb-12"
       >
-        <h2 class="text-sm text-[#0487E2] font-semibold uppercase tracking-wider mb-2">Berita Sekolah</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Artikel & Update Terkini</h3>
+        <h2 class="text-sm text-cyan-600 font-semibold uppercase tracking-wider mb-2">Berita Sekolah</h2>
+        <h3 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-800 to-purple-800 bg-clip-text text-transparent mb-4">Artikel & Update Terkini</h3>
         <p class="text-gray-600 max-w-2xl mx-auto">
           Tetap update dengan berita, kegiatan, dan pencapaian terbaru dari SMA Negeri 1 Lareh Sago Halaban
         </p>
@@ -19,12 +29,22 @@
       <!-- Featured Article -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 30 },
-          enter: { opacity: 1, y: 0, transition: { delay: 200 } }
+          initial: { opacity: 0, x: -100, rotateY: -15 },
+          visibleOnce: { 
+            opacity: 1, 
+            x: 0, 
+            rotateY: 0,
+            transition: { 
+              type: 'spring',
+              stiffness: 80,
+              damping: 20,
+              delay: 300
+            }
+          }
         }"
         class="mb-12"
       >
-        <div class="bg-gradient-to-r from-[#0487E2] to-[#65C2F5] rounded-2xl overflow-hidden shadow-xl">
+        <div class="bg-gradient-to-r from-cyan-600 to-purple-600 rounded-2xl overflow-hidden shadow-xl">
           <div class="grid md:grid-cols-2 gap-0">
             <div class="relative h-64 md:h-auto">
               <img 
@@ -33,7 +53,7 @@
                 class="w-full h-full object-cover"
               >
               <div class="absolute top-4 left-4">
-                <span class="bg-white/90 text-[#0487E2] px-3 py-1 rounded-full text-xs font-semibold">
+                <span class="bg-white/90 text-cyan-600 px-3 py-1 rounded-full text-xs font-semibold">
                   UTAMA
                 </span>
               </div>
@@ -48,7 +68,7 @@
               <p class="text-white/90 mb-6 leading-relaxed">{{ featuredArticle.excerpt }}</p>
               <button 
                 @click="readMore(featuredArticle)"
-                class="bg-white text-[#0487E2] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-fit"
+                class="bg-white text-cyan-600 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-50 transition-colors w-fit shadow-sm"
               >
                 Baca Selengkapnya
               </button>
@@ -60,8 +80,18 @@
       <!-- Category Filter -->
       <div 
         v-motion="{
-          initial: { opacity: 0, y: 20 },
-          enter: { opacity: 1, y: 0, transition: { delay: 400 } }
+          initial: { opacity: 0, y: 40, scale: 0.8 },
+          visibleOnce: { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            transition: { 
+              type: 'spring',
+              stiffness: 120,
+              damping: 15,
+              delay: 500
+            }
+          }
         }"
         class="flex flex-wrap justify-center gap-4 mb-8"
       >
@@ -69,10 +99,10 @@
           v-for="category in categories" 
           :key="category.id"
           @click="activeCategory = category.id"
-          class="px-6 py-2 rounded-full font-medium transition-all duration-300"
+          class="px-6 py-2 rounded-full font-medium transition-all duration-300 shadow-sm"
           :class="activeCategory === category.id 
-            ? 'bg-[#0487E2] text-white shadow-lg' 
-            : 'bg-gray-100 text-gray-600 hover:bg-[#B0D6F5]/30 hover:text-[#0487E2]'"
+            ? 'bg-gradient-to-r from-cyan-600 to-purple-600 text-white shadow-lg shadow-cyan-500/25' 
+            : 'bg-white text-gray-600 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-purple-50 hover:text-cyan-600 border border-gray-200'"
         >
           {{ category.name }}
         </button>
@@ -84,10 +114,21 @@
           v-for="(article, index) in filteredArticles" 
           :key="article.id"
           v-motion="{
-            initial: { opacity: 0, y: 50 },
-            enter: { opacity: 1, y: 0, transition: { delay: (index * 100) + 600 } }
+            initial: { opacity: 0, y: 80, rotateX: -10, scale: 0.8 },
+            visibleOnce: { 
+              opacity: 1, 
+              y: 0, 
+              rotateX: 0, 
+              scale: 1,
+              transition: { 
+                type: 'spring',
+                stiffness: 100,
+                damping: 15,
+                delay: 700 + (index * 100)
+              }
+            }
           }"
-          class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-purple-200/50 overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 hover:border-purple-300/50 hover:scale-105"
         >
           <!-- Article Image -->
           <div class="relative h-48 overflow-hidden">
@@ -97,7 +138,7 @@
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             >
             <div class="absolute top-4 left-4">
-              <span class="bg-[#0487E2] text-white px-3 py-1 rounded-full text-xs font-semibold">
+              <span class="bg-gradient-to-r from-cyan-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                 {{ article.category }}
               </span>
             </div>
@@ -118,7 +159,7 @@
               {{ article.views }} views
             </div>
             
-            <h4 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2 hover:text-[#0487E2] transition-colors">
+            <h4 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2 hover:text-cyan-600 transition-colors">
               {{ article.title }}
             </h4>
             
@@ -126,7 +167,7 @@
             
             <div class="flex items-center justify-between">
               <div class="flex items-center">
-                <div class="w-8 h-8 bg-[#0487E2] rounded-full flex items-center justify-center mr-3">
+                <div class="w-8 h-8 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-full flex items-center justify-center mr-3 shadow-sm">
                   <span class="text-white text-xs font-bold">{{ article.author.initials }}</span>
                 </div>
                 <div>
@@ -137,7 +178,7 @@
               
               <button 
                 @click="readMore(article)"
-                class="text-[#0487E2] hover:text-[#0463CA] font-semibold text-sm flex items-center"
+                class="text-cyan-600 hover:text-purple-600 font-semibold text-sm flex items-center transition-colors"
               >
                 Baca
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -157,7 +198,7 @@
         }"
         class="text-center"
       >
-        <button class="bg-[#0487E2] hover:bg-[#0463CA] text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+        <button class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-cyan-500/25">
           <span class="text-white">Muat Berita Lainnya</span>
         </button>
       </div>
@@ -190,7 +231,7 @@
         <!-- Modal Content -->
         <div class="p-8">
           <div class="flex items-center text-sm text-gray-500 mb-4">
-            <span class="bg-[#0487E2] text-white px-3 py-1 rounded-full text-xs font-semibold mr-4">
+            <span class="bg-gradient-to-r from-cyan-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold mr-4 shadow-sm">
               {{ selectedArticle.category }}
             </span>
             {{ selectedArticle.date }}
@@ -201,7 +242,7 @@
           <h2 class="text-3xl font-bold text-gray-800 mb-4">{{ selectedArticle.title }}</h2>
           
           <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-[#0487E2] rounded-full flex items-center justify-center mr-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
               <span class="text-white font-bold">{{ selectedArticle.author.initials }}</span>
             </div>
             <div>
