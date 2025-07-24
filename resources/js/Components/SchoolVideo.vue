@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 relative overflow-hidden">
+  <section class="py-12 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 relative overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
       <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 25% 25%, #ffffff 2px, transparent 2px), radial-gradient(circle at 75% 75%, #ffffff 2px, transparent 2px); background-size: 50px 50px;"></div>
@@ -22,17 +22,17 @@
             }
           }
         }"
-        class="text-center mb-16"
+        class="text-center mb-10"
       >
         <div class="inline-block px-6 py-2 mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 text-white rounded-full text-sm font-bold uppercase tracking-wider shadow-lg">
           Video Profil
         </div>
-        <h3 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+        <h3 class="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
           <span class="bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
             Mengenal SMA 1 Lareh Sago Halaban
           </span>
         </h3>
-        <p class="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-lg text-gray-100 max-w-2xl mx-auto leading-relaxed">
           Saksikan profil lengkap sekolah kami melalui video yang menampilkan fasilitas modern, kegiatan pembelajaran inovatif, dan prestasi membanggakan yang telah diraih
         </p>
       </div>
@@ -55,25 +55,32 @@
             }
           }
         }"
-        class="mb-20"
+        class="mb-14"
       >
-        <div class="relative">
+        <div class="relative mx-auto" style="max-width: 600px;">
           <!-- Glow Effect -->
-          <div class="absolute -inset-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-lg opacity-75 animate-pulse"></div>
+          <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-2xl blur-sm opacity-60 animate-pulse"></div>
           
-          <div class="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
+          <div class="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl shadow-lg overflow-hidden border border-gray-700">
             <div class="relative">
               <!-- Video Player -->
               <div class="relative aspect-video bg-black">
-                <!-- YouTube Embed Player -->
-                <iframe
-                  v-if="isPlaying && currentVideo"
-                  :src="getYouTubeEmbedUrl(currentVideo.url)"
-                  class="w-full h-full rounded-t-3xl"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
+                <template v-if="isPlaying && currentVideo">
+                  <!-- YouTube Embed Player -->
+                  <div class="flex justify-center items-center h-full">
+                    <iframe
+                      :src="getYouTubeEmbedUrl(currentVideo.url)"
+                      width="560"
+                      height="315"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                      class="rounded-t-2xl"
+                    ></iframe>
+                  </div>
+                </template>
                 
                 <!-- Video Thumbnail -->
                 <div 
@@ -84,11 +91,11 @@
                   <img 
                     :src="featuredVideo.thumbnail" 
                     :alt="featuredVideo.title"
-                    class="w-full h-full object-cover rounded-t-3xl"
+                    class="w-full h-full object-cover rounded-t-2xl"
                   >
                   
                   <!-- Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-blue-900/60 group-hover:from-black/40 group-hover:via-purple-800/60 group-hover:to-blue-800/40 transition-all duration-500 flex items-center justify-center rounded-t-3xl">
+                  <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-blue-900/60 group-hover:from-black/40 group-hover:via-purple-800/60 group-hover:to-blue-800/40 transition-all duration-500 flex items-center justify-center rounded-t-2xl">
                     <!-- Play Button -->
                     <div 
                       v-motion="{
@@ -104,19 +111,19 @@
                           }
                         }
                       }"
-                      class="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center group-hover:from-cyan-300 group-hover:to-blue-400 transition-all duration-300 shadow-2xl border-4 border-white/20 group-hover:scale-110 group-hover:shadow-cyan-400/50"
+                      class="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center group-hover:from-cyan-300 group-hover:to-blue-400 transition-all duration-300 shadow-xl border-4 border-white/20 group-hover:scale-110 group-hover:shadow-cyan-400/50"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                       </svg>
                     </div>
                   </div>
 
                   <!-- Video Info Overlay -->
-                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-gray-900/80 to-transparent p-8 rounded-b-3xl">
-                    <h4 class="text-white text-2xl font-bold mb-3 leading-tight">{{ featuredVideo.title }}</h4>
-                    <p class="text-gray-200 text-base mb-4 leading-relaxed">{{ featuredVideo.description }}</p>
-                    <div class="flex items-center text-cyan-300 text-sm font-medium">
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-gray-900/80 to-transparent p-4 rounded-b-2xl">
+                    <h4 class="text-white text-lg font-bold mb-1 leading-tight">{{ featuredVideo.title }}</h4>
+                    <p class="text-gray-200 text-xs mb-2 leading-relaxed line-clamp-2">{{ featuredVideo.description }}</p>
+                    <div class="flex items-center text-cyan-300 text-xs font-medium">
                       <div class="flex items-center mr-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -31,9 +31,9 @@
           <div class="mb-6">
             <h4 class="font-semibold text-white mb-3">Alamat Sekolah</h4>
             <div class="text-gray-300 text-sm leading-relaxed">
-              <p>Jl. Lintas Padang - Bukittinggi Km. 25</p>
-              <p>Lareh Sago Halaban, Kab. Solok</p>
-              <p>Sumatera Barat 27365</p>
+              <p>Jl. Lintas Payakumbuh – Lintau Km. 11</p>
+              <p>Pakan Rabaa, Lareh Sago Halaban</p>
+              <p>Sumatera Barat 26262</p>
             </div>
           </div>
 
