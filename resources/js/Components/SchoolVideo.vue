@@ -49,11 +49,6 @@
             transition: { 
               type: 'spring',
               stiffness: 80,
-              damping: 20,
-              delay: 600
-            }
-          }
-        }"
               damping: 15,
               delay: 400,
               duration: 1000
