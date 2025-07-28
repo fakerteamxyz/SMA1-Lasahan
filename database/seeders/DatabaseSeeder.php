@@ -14,9 +14,29 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Create or update super admin
+        \App\Models\User::updateOrCreate(
+            ['email' => 'admin@sma-lareh.sch.id'],
+            [
+                'name' => 'Super Admin',
+                'email' => 'admin@sma-lareh.sch.id',
+                'password' => bcrypt('admin123'),
+            ]
+        );
+
+        // Create or update regular admin
+        \App\Models\User::updateOrCreate(
+            ['email' => 'staff@sma-lareh.sch.id'],
+            [
+                'name' => 'Regular Admin',
+                'email' => 'staff@sma-lareh.sch.id',
+                'password' => bcrypt('admin123'),
+            ]
+        );
+
+        // Run the School Profile seeder
+        $this->call([
+            SchoolProfileSeeder::class,
+        ]);
     }
 }

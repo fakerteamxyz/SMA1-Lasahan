@@ -1,0 +1,80 @@
+/* School Profile Styling */
+
+/* Vision & Mission */
+.mission-list {
+    padding-left: 20px;
+}
+
+.mission-list li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.mission-list li::before {
+    content: "•";
+    color: #4e73df;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: inline-block;
+    width: 15px;
+    margin-left: -15px;
+    position: absolute;
+    left: 0;
+}
+
+/* Goals */
+.goals-list {
+    padding-left: 20px;
+}
+
+.goals-list li {
+    margin-bottom: 1rem;
+}
+
+.goals-list li::marker {
+    color: #4e73df;
+    font-weight: bold;
+}
+
+/* School History */
+.school-history {
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.school-history p {
+    margin-bottom: 1.5rem;
+}
+
+/* Cards */
+.card-header.bg-primary {
+    background-color: #4e73df !important;
+    border-color: #4e73df !important;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Page Title */
+.page-title {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.page-title:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #4e73df;
+}
