@@ -132,11 +132,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('admin.school-profile.edit', $profile->key) }}" method="GET">
-                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                        </form>
+                                        <a href="{{ route('admin.school-profile.index', ['edit' => $profile->key]) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -166,13 +164,122 @@
                 </div>
             </div>
         </div>
+
+        @if($editProfile)
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Edit {{ $editProfile->title }}</h6>
+            </div>
+            <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('admin.school-profile.update', $editProfile->key) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="form-group mb-3">
+                        <label for="title">Judul</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $editProfile->title) }}" required>
+                    </div>
+
+                    @if($editProfile->is_array)
+                        <div class="form-group">
+                            <label>Daftar Item</label>
+                            <div id="items-container">
+                                @if(old('content'))
+                                    @foreach(old('content') as $key => $item)
+                                        <div class="item-container position-relative border rounded p-3 mb-2">
+                                            <textarea class="form-control" name="content[]" rows="3" required>{{ $item }}</textarea>
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-item">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    @foreach($editProfile->value as $item)
+                                        <div class="item-container position-relative border rounded p-3 mb-2">
+                                            <textarea class="form-control" name="content[]" rows="3" required>{{ $item }}</textarea>
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-item">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <button type="button" id="add-item" class="btn btn-sm btn-success mt-2">
+                                <i class="fas fa-plus"></i> Tambah Item
+                            </button>
+                        </div>
+                    @else
+                        <div class="form-group mb-3">
+                            <label for="content">Konten</label>
+                            <textarea class="form-control" id="content" name="content" rows="10" required>{{ old('content', $editProfile->value) }}</textarea>
+                        </div>
+                    @endif
+
+                    <div class="d-flex mt-3">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-save"></i> Simpan Perubahan
+                        </button>
+                        <a href="{{ route('admin.school-profile.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Batal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endif
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            // Initialize CKEditor on non-array content
+            if (document.getElementById('content')) {
+                ClassicEditor
+                    .create(document.getElementById('content'))
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+
+            // Add new item for array content
+            $('#add-item').click(function() {
+                const newItem = `
+                    <div class="item-container position-relative border rounded p-3 mb-2">
+                        <textarea class="form-control" name="content[]" rows="3" required></textarea>
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-item">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                $('#items-container').append(newItem);
+            });
+
+            // Remove item for array content
+            $(document).on('click', '.remove-item', function() {
+                if ($('.item-container').length > 1) {
+                    $(this).closest('.item-container').remove();
+                } else {
+                    alert('Minimal harus ada satu item');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

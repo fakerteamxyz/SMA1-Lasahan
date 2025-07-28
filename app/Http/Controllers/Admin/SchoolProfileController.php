@@ -15,10 +15,17 @@ class SchoolProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Get all profiles sorted by order
         $profiles = SchoolProfile::orderBy('order')->get();
+
+        // If a specific item is being edited, load its details
+        $editProfile = null;
+        if ($request->has('edit')) {
+            $editKey = $request->input('edit');
+            $editProfile = SchoolProfile::where('key', $editKey)->first();
+        }
 
         // Debug info
         $debugInfo = [
@@ -32,17 +39,19 @@ class SchoolProfileController extends Controller
             if ($profiles->isEmpty()) {
                 return view('admin.school-profile.simple-index', [
                     'profiles' => $profiles,
+                    'editProfile' => $editProfile,
                     'debug_message' => 'Tidak ada data profil sekolah yang ditemukan di database.',
                     'debug_info' => $debugInfo
                 ]);
             }
 
             // Coba render dengan template utama
-            return view('admin.school-profile.simple-index', compact('profiles', 'debugInfo'));
+            return view('admin.school-profile.simple-index', compact('profiles', 'editProfile', 'debugInfo'));
         } catch (\Throwable $e) {
             // Jika gagal, gunakan tampilan alternatif
             return view('admin.school-profile.simple-index', [
                 'profiles' => $profiles,
+                'editProfile' => $editProfile,
                 'error_message' => 'Terjadi kesalahan: ' . $e->getMessage(),
                 'debug_info' => $debugInfo
             ]);
@@ -109,8 +118,9 @@ class SchoolProfileController extends Controller
 
         $profile->update($data);
 
+        // Redirect back to the index page with a success message
         return redirect()->route('admin.school-profile.index')
-            ->with('success', 'Profil sekolah berhasil diperbarui.');
+            ->with('success', 'Profil sekolah "' . $profile->title . '" berhasil diperbarui.');
     }
 
     /**

@@ -99,9 +99,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         return view('admin.dashboard');
     })->name('dashboard');
 
-    // School Profile Management
+    // School Profile Management (Inline Editing)
     Route::get('/school-profile', [AdminSchoolProfileController::class, 'index'])->name('school-profile.index');
-    Route::get('/school-profile/{key}/edit', [AdminSchoolProfileController::class, 'edit'])->name('school-profile.edit');
     Route::put('/school-profile/{key}', [AdminSchoolProfileController::class, 'update'])->name('school-profile.update');
     Route::post('/school-profile/reset', [AdminSchoolProfileController::class, 'reset'])->name('school-profile.reset');
 });
